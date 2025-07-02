@@ -41,7 +41,33 @@ public:
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
-		return { false, 0, 0 };
+
+		GuessResult result = { false, 0, 0 };
+		result.strikes = getStrikes(guessNumber);
+		result.balls = getBall(guessNumber);
+		return result;
+	}
+
+	int getStrikes(const string& guessNumber) {
+		int strikes = 0;
+		for (int i = 0; i < 3; i++) {
+			if (guessNumber[i] != question[i]) continue;
+			strikes++;
+		}
+
+		return strikes;
+	}
+
+	int getBall(const string& guessNumber) {
+		int ball = 0;
+		if (guessNumber[0] == question[1] || guessNumber[0] == question[2])
+			ball++;
+		if (guessNumber[1] == question[0] || guessNumber[1] == question[2])
+			ball++;
+		if (guessNumber[2] == question[0] || guessNumber[2] == question[1])
+			ball++;
+
+		return ball;
 	}
 
 private:
