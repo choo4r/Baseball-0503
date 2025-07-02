@@ -41,7 +41,21 @@ public:
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
-		return { false, 0, 0 };
+
+		GuessResult result = getCount(guessNumber);
+		return result;
+	}
+
+	GuessResult getCount(const string& guessNumber) {
+		GuessResult count = { false, 0, 0 };
+		for (int i = 0; i < guessNumber.length(); ++i) {
+			for (int j = 0; j < question.length(); ++j) {
+				if (guessNumber[i] != question[j]) continue;
+				if (i == j) count.strikes++;
+				else count.balls++;
+			}
+		}
+		return count;
 	}
 
 private:
